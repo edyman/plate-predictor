@@ -1,31 +1,36 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+use \App\Libraries\Plate;
 
-final class PlateTest extends TestCase{
-  protected $stack;
+class PlateTest extends PHPUnit_Framework_TestCase {
 
-  protected function setUp()
-    {
-        $this->stack = [];
+    public function setUp(){
+        $this->plate=new Plate();
     }
 
-    public function testEmpty()
-    {
-        $this->assertTrue(empty($this->stack));
+    public function testThatWeCanGetPlate(){
+        $this->plate->setPlate('PBJ1234');
+        $this->assertEquals($this->plate->getPlate(),'PBJ1234');
+
     }
 
-    public function testPush()
-    {
-        array_push($this->stack, 'foo');
-        $this->assertEquals('foo', $this->stack[count($this->stack)-1]);
-        $this->assertFalse(empty($this->stack));
+    public function testAppropriatePlateLenght(){
+        $this->plate->setPlate('PBJ1235');
+        $this->assertEquals(7, strlen($this->plate->getPlate()));
     }
 
-    public function testPop()
-    {
-        array_push($this->stack, 'foo');
-        $this->assertEquals('foo', array_pop($this->stack));
-        $this->assertTrue(empty($this->stack));
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testStringPlateValueFailure(){
+        $this->plate->setPlate(42);
+        $this->assertInternalType('string',$this->plate->getPlate());
     }
+
+    
+
+
+    // STRING
+
+
 }

@@ -26,9 +26,9 @@ PHPUnit 5.7.20 by Sebastian Bergmann and contributors.
 Composer, Autoloading, Namespacing, and PHPUnit!
 https://www.youtube.com/watch?v=84j61_aI0q8
 
+Unit testing with PHPUnit: (1/10)
+https://www.youtube.com/watch?v=k9ak_rv9X0Y
 
 Unit Testing With PHPUnit | Full Course | GDrive exercise code
 https://www.youtube.com/watch?v=uncVbYGOJ8c
 
-Unit testing with PHPUnit: (1/10)
-https://www.youtube.com/watch?v=k9ak_rv9X0Y

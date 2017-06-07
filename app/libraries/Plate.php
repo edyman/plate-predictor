@@ -1,6 +1,7 @@
 <?php
-require("Base.php");
-final class Plate extends Base{
+namespace App\Libraries;
+
+final class Plate extends \Base{
 
   private $peakDays=[];
   private $peakHours=[];
@@ -15,6 +16,16 @@ final class Plate extends Base{
     //print __CLASS__.' created <br>';
   }
 
+/**
+ *  SETTERS
+ */
+    public function setPlate($plate){
+        if (!is_string($plate))
+            throw new \InvalidArgumentException;
+        $this->plate=$plate;
+        return $this;
+    }
+
     /**
      * Static constructor / factory
      */
@@ -22,15 +33,6 @@ final class Plate extends Base{
         $instance = new self();
         return $instance;
     }
-
-
-  // Setters
-  public function setPlate($plate){
-    $this->ensureValidPlate($plate);
-    $this->plate=$plate;
-
-    return $this;
-  }
   public function setDate($date){
     $this->date=$date;
     return $this;

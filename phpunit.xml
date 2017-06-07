@@ -1,6 +1,7 @@
 <phpunit
         boostrap="vendor/autoload.php"
         colors="true"
+        vervose="true   "
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
@@ -9,8 +10,8 @@
         syntaxCheck="false"
         >
     <testsuites>
-        <testsuite name="App Tests">
-            <directory>test</directory>
+        <testsuite name="APP TEST">
+            <file>test/PlateTest.php</file>
         </testsuite>
     </testsuites>
 
