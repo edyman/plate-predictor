@@ -1,9 +1,16 @@
 <?php
+require("baseClass.php");
+class PlateClass extends BaseClass{
 
-class Plate{
   // Declare properties
   public $stringSection='';
   public $numberSection='';
+
+  // Constructor
+  function __construct(){
+    parent::__construct();
+    print "Constructor PlateClass";
+  }
 
 
   // Setters
@@ -24,4 +31,6 @@ class Plate{
 
     return TRUE;
   }
+
+
 }
