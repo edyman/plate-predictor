@@ -1,19 +1,41 @@
 <?php
 require("baseClass.php");
-class PlateClass extends BaseClass{
+final class PlateClass extends BaseClass{
+
+  private $peakDays=[];
+  private $peakHours=[];
 
   // Declare properties
-  public $stringSection='';
-  public $numberSection='';
+  private $plate;
+  private $date;
 
   // Constructor
-  function __construct(){
+  public function __construct(){
     parent::__construct();
-    print "Constructor PlateClass";
+    //print __CLASS__.' created <br>';
   }
+
+    /**
+     * Static constructor / factory
+     */
+    public static function create() {
+        $instance = new self();
+        return $instance;
+    }
 
 
   // Setters
+  public function setPlate($plate){
+    $this->ensureValidPlate($plate);
+    $this->plate=$plate;
+
+    return $this;
+  }
+  public function setDate($date){
+    $this->date=$date;
+    return $this;
+  }
+
   public function setString($string){
     //TODO get string and asign to each class' variable
   }
@@ -26,10 +48,34 @@ class PlateClass extends BaseClass{
 
   }
 
+
+
+  public function getPeakDays(){
+    return $this->peakDays;
+  }
+
+  public function getPeakHours(){
+    return $this->peakHours;
+  }
+
+  public function getPlate(){
+    return $this->plate;
+  }
+
   public function canBeOnTheRoad(){
     //TODO
 
     return TRUE;
+  }
+
+  private function ensureValidPlate($plate){
+    if (strlen($plate)<>7)
+      throw new InvalidArgumentException(
+                sprintf(
+                    '"%s" is not a valid plate',
+                    $plate
+                )
+            );
   }
 
 

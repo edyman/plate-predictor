@@ -6,6 +6,6 @@ class BaseClass{
   }
 
   function __destruct(){
-    print "Eliminado objeto";
+    //
   }
 }
