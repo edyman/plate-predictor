@@ -8,6 +8,8 @@ The solution should demonstrate good object-oriented code with unit tests. Pleas
 # resources
 https://phpunit.de/getting-started.html
 
+# Composer
+- Create composer.json
 
 # Install phpunit php5.6 support
 wget sudo wget https://phar.phpunit.de/phpunit-5.7.phar
