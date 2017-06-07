@@ -1,6 +1,6 @@
 <?php
 
-class BaseClass{
+class Base{
   function __construct(){
     //
   }

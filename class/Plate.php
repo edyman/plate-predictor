@@ -1,6 +1,6 @@
 <?php
-require("baseClass.php");
-final class PlateClass extends BaseClass{
+require("Base.php");
+final class Plate extends Base{
 
   private $peakDays=[];
   private $peakHours=[];
@@ -70,12 +70,8 @@ final class PlateClass extends BaseClass{
 
   private function ensureValidPlate($plate){
     if (strlen($plate)<>7)
-      throw new InvalidArgumentException(
-                sprintf(
-                    '"%s" is not a valid plate',
-                    $plate
-                )
-            );
+      throw new InvalidArgumentException('tripleInteger function only accepts integers. Input was: '.$plate);
+
   }
 
 

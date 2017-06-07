@@ -1,7 +1,8 @@
 <?php
-  //Include definition
-  require("../class/plateClass.php");
 
+  use PHPUnit\Framework\TestCase;
+  //Include definition
+  require("../class/Plate.php");
 
   $peakDays=[
     'Monday'    =>[1,2],
@@ -28,7 +29,7 @@
 
 
 
-  $plate='PBJ012';
+  $plate='PBJ0123';
   $lastPlateNumber=7;
 
   $date = '2017/06/01';
@@ -56,7 +57,7 @@ else {
   echo "No existe";
 }
 
-  $obj1= PlateClass::create()->setPlate($plate)->setDate($date);
+  $obj1= Plate::create()->setPlate($plate)->setDate($date);
   $obj1->setPlate($plate);
 
   //var_dump($obj1->getPeakDays());
