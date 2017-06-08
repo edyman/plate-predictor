@@ -1,80 +1,93 @@
 <?php
 namespace App\Libraries;
 
-final class Plate extends \Base{
+class Plate{
+    const   PLATE_LENGHT=7;
+    // Declare properties
 
-  private $peakDays=[];
-  private $peakHours=[];
+    protected   $plate;
+    protected   $peak_day;
+    protected   $peak_hour;
+    protected   $plate_last_digit;
+    protected   $message=array();
 
-  // Declare properties
-  private $plate;
-  private $date;
 
-  // Constructor
-  public function __construct(){
-    parent::__construct();
-    //print __CLASS__.' created <br>';
-  }
+    private $peakDays=[];
+    private $peakHours=[];
 
-/**
- *  SETTERS
- */
+    // Constructor
+    public function __construct(){
+        //TODO
+    }
+
     public function setPlate($plate){
-        if (!is_string($plate))
+
+        if (!is_string($plate)){
+            array_push($this->message,'Plate must be string');
             throw new \InvalidArgumentException;
-        $this->plate=$plate;
-        return $this;
+        }
+        $this->plate=trim($plate);
+        $this->plate_last_digit=substr($this->plate,-1);
+
     }
 
-    /**
-     * Static constructor / factory
-     */
-    public static function create() {
-        $instance = new self();
-        return $instance;
+    public function getPlate(){
+        return $this->plate;
     }
-  public function setDate($date){
-    $this->date=$date;
-    return $this;
-  }
 
-  public function setString($string){
-    //TODO get string and asign to each class' variable
-  }
+    public function getLastDigit(){
+        return substr($this->plate,-1);
+    }
 
-  public function setCurrentDate(){
+    public function validatePlate(){
+        $pattern = '/[A-Za-z]{3}[0-9]{4}+$/';
+        $result = preg_match( $pattern, $this->plate );
+        if(!$result){
+            array_push($this->message,'Plate must match pattern Ex: ABC1234');
+            throw new \InvalidArgumentException;
+        }
 
-  }
+        return $result;
+    }
 
-  public function setCurrentTime(){
+    public function setDate($date){
+        $this->peak_day=date('l', strtotime($date));
+    }
 
-  }
+    public function setPeakHour($time){
+        $this->peak_hour=strtotime($time);
+    }
 
+    public function getVariables(){
+        return [
+            'plate'=>$this->plate,
+            'plate_last_digit'=>$this->plate_last_digit,
+            'peak_day'=>$this->peak_day,
+            'peak_hour'=>$this->peak_hour
+        ];
+    }
 
+    public function getMessage(){
+        return $this->message;
+    }
 
-  public function getPeakDays(){
-    return $this->peakDays;
-  }
-
-  public function getPeakHours(){
-    return $this->peakHours;
-  }
-
-  public function getPlate(){
-    return $this->plate;
-  }
-
-  public function canBeOnTheRoad(){
-    //TODO
-
-    return TRUE;
-  }
-
-  private function ensureValidPlate($plate){
-    if (strlen($plate)<>7)
-      throw new InvalidArgumentException('tripleInteger function only accepts integers. Input was: '.$plate);
-
-  }
-
-
+    public function canBeOnTheRoad($peakDays,$peakHours){
+        $this->validatePlate();
+        // Verify Peak Day exist in array
+        if (array_key_exists($this->peak_day, $peakDays)) {
+            // Verify if last plate digit exist in current array
+            if (in_array($this->plate_last_digit,$peakDays[$this->peak_day])){
+                if (  (($this->peak_hour>=$peakHours[0]['begin']) &&  ($this->peak_hour<=$peakHours[0]['end'])) or  ( ($this->peak_hour>=$peakHours[1]['begin']) &&  ($this->peak_hour<=$peakHours[1]['end']))){
+                    array_push($this->message,'You are in restricted hour, stop and park your car.');
+                    return false;
+                }
+                array_push($this->message,'Run like the wind, but take care today you have restricted circulation.');
+            }
+            else{
+                array_push($this->message,'Today you are safe!!');
+            }
+        }else
+            array_push($this->message,$this->peak_day.': take your bike and enjoy the nature !!!');
+        return true;
+    }
 }
